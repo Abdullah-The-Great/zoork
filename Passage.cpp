@@ -3,31 +3,26 @@
 //
 
 #include "Passage.h"
-
 #include <utility>
 #include "PassageDefaultEnterCommand.h"
 
+// Returns the opposite direction of the input string (e.g., "north" -> "south")
 std::string Passage::oppositeDirection(const std::string &s) {
     if (s == "north") return "south";
-    else if (s == "south") return "north";
-    else if (s == "east") return "west";
-    else if (s == "west") return "east";
-    else if (s == "up") return "down";
-    else if (s == "down") return "up";
-    else if (s == "in") return "out";
-    else if (s == "out") return "in";
-    else return "unknown_direction";
+    if (s == "south") return "north";
+    if (s == "east")  return "west";
+    if (s == "west")  return "east";
+    if (s == "up")    return "down";
+    if (s == "down")  return "up";
+    return "";  // unknown direction
 }
 
+// Creates two passages between rooms if bidirectional is true
 void Passage::createBasicPassage(Room* from, Room* to,
-                                 const std::string &direction, bool bidirectional = true) {
-    std::string passageName = from->getName() + "_to_" + to->getName();
-    auto temp1 = std::make_shared<Passage>(passageName, "A totally normal passageway.", from, to);
-    from->addPassage(direction, temp1);
+                                const std::string &direction, bool bidirectional) {
+    from->addPassage(direction, std::make_shared<Passage>(direction + "_passage", "A basic passage.", from, to));
     if (bidirectional) {
-        std::string passageName2 = to->getName() + "_to_" + from->getName();
-        auto temp2 = std::make_shared<Passage>(passageName, "A totally normal passageway.", to, from);
-        to->addPassage(oppositeDirection(direction), temp2);
+        to->addPassage(oppositeDirection(direction), std::make_shared<Passage>(oppositeDirection(direction) + "_passage", "A basic passage.", to, from));
     }
 }
 
@@ -54,4 +49,14 @@ void Passage::setTo(Room* r) {
 
 Room* Passage::getTo() const {
     return toRoom;
+}
+
+bool Passage::canEnter() const {
+    // By default, passage is enterable
+    return true;
+}
+
+void Passage::enter() {
+    // Call the base class enter, which executes the enterCommand
+    Location::enter();
 }

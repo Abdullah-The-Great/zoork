@@ -1,6 +1,7 @@
 #include "ZOOrkEngine.h"
 #include "Room.h"
 #include "Passage.h"
+#include "Door.h"
 #include "Item.h"
 #include <memory>
 
@@ -21,14 +22,18 @@ int main() {
     foyer->addItem(std::make_shared<Item>("pumpkin", "A carved pumpkin with a flickering candle inside."));
     foyer->addItem(std::make_shared<Item>("witch-hat", "A tall, pointed black hat with a purple band."));
     foyer->addItem(std::make_shared<Item>("rusty-key", "An old rusty key covered in strange symbols."));
+    foyer->addItem(std::make_shared<Item>("orange-key", "A bright orange key carved from pumpkin wood."));
+    foyer->addItem(std::make_shared<Item>("black-key", "A small black key that looks ancient."));
+    foyer->addItem(std::make_shared<Item>("witch-key", "A slender key with a tiny witch-shaped handle."));
+    foyer->addItem(std::make_shared<Item>("pumpkin-key", "A key shaped like a pumpkin, glowing faintly."));
 
     kitchen->addItem(std::make_shared<Item>("cauldron", "A large iron cauldron bubbling with green liquid."));
     kitchen->addItem(std::make_shared<Item>("bottle-of-bat-wings", "A dusty bottle filled with dried bat wings."));
-    kitchen->addItem(std::make_shared<Item>("cursed spoon", "A silver spoon that feels cold to the touch."));
+    kitchen->addItem(std::make_shared<Item>("cursed-spoon", "A silver spoon that feels cold to the touch."));
 
     library->addItem(std::make_shared<Item>("ancient-spellbook", "A leather-bound book filled with arcane writings."));
     library->addItem(std::make_shared<Item>("crystal-ball", "A cloudy crystal ball glowing faintly."));
-    library->addItem(std::make_shared<Item>("witches' broom", "A broomstick with twigs tied to the end."));
+    library->addItem(std::make_shared<Item>("witches'-broom", "A broomstick with twigs tied to the end."));
 
     garden->addItem(std::make_shared<Item>("grave-marker", "A cracked tombstone with a faded name."));
     garden->addItem(std::make_shared<Item>("black-cat-statue", "A stone statue of a black cat with glowing eyes."));
@@ -58,23 +63,23 @@ int main() {
     study->addItem(std::make_shared<Item>("quill-pen", "A black feather quill pen dripping with ink."));
     study->addItem(std::make_shared<Item>("cursed-amulet", "An amulet that seems to pulse with dark energy."));
 
-    // Connect rooms with passages as before, using lowercase room names
-    foyer->addPassage("north", std::make_shared<Passage>("foyer_to_hallway", "A creaky wooden door.", foyer.get(), hallway.get()));
-    hallway->addPassage("south", std::make_shared<Passage>("hallway_to_foyer", "A creaky wooden door.", hallway.get(), foyer.get()));
+    // Connect rooms with passages or doors requiring keys
+    foyer->addPassage("north", std::make_shared<Door>("foyer_to_hallway", "A creaky wooden door.", foyer.get(), hallway.get(), "orange-key"));
+    hallway->addPassage("south", std::make_shared<Door>("hallway_to_foyer", "A creaky wooden door.", hallway.get(), foyer.get(), "orange-key"));
 
     hallway->addPassage("east", std::make_shared<Passage>("hallway_to_kitchen", "A narrow archway.", hallway.get(), kitchen.get()));
-    hallway->addPassage("west", std::make_shared<Passage>("hallway_to_library", "A darkened archway.", hallway.get(), library.get()));
+    hallway->addPassage("west", std::make_shared<Door>("hallway_to_library", "A darkened archway.", hallway.get(), library.get(), "black-key"));
     kitchen->addPassage("west", std::make_shared<Passage>("kitchen_to_hallway", "A narrow archway.", kitchen.get(), hallway.get()));
-    library->addPassage("east", std::make_shared<Passage>("library_to_hallway", "A darkened archway.", library.get(), hallway.get()));
+    library->addPassage("east", std::make_shared<Door>("library_to_hallway", "A darkened archway.", library.get(), hallway.get(), "black-key"));
 
-    hallway->addPassage("north", std::make_shared<Passage>("hallway_to_bedroom", "A heavy oak door.", hallway.get(), bedroom.get()));
-    bedroom->addPassage("south", std::make_shared<Passage>("bedroom_to_hallway", "A heavy oak door.", bedroom.get(), hallway.get()));
+    hallway->addPassage("north", std::make_shared<Door>("hallway_to_bedroom", "A heavy oak door.", hallway.get(), bedroom.get(), "pumpkin-key"));
+    bedroom->addPassage("south", std::make_shared<Door>("bedroom_to_hallway", "A heavy oak door.", bedroom.get(), hallway.get(), "pumpkin-key"));
 
     bedroom->addPassage("east", std::make_shared<Passage>("bedroom_to_bathroom", "A creaky door.", bedroom.get(), bathroom.get()));
     bathroom->addPassage("west", std::make_shared<Passage>("bathroom_to_bedroom", "A creaky door.", bathroom.get(), bedroom.get()));
 
-    bedroom->addPassage("west", std::make_shared<Passage>("bedroom_to_study", "A narrow door.", bedroom.get(), study.get()));
-    study->addPassage("east", std::make_shared<Passage>("study_to_bedroom", "A narrow door.", study.get(), bedroom.get()));
+    bedroom->addPassage("west", std::make_shared<Door>("bedroom_to_study", "A narrow door.", bedroom.get(), study.get(), "witch-key"));
+    study->addPassage("east", std::make_shared<Door>("study_to_bedroom", "A narrow door.", study.get(), bedroom.get(), "witch-key"));
 
     kitchen->addPassage("down", std::make_shared<Passage>("kitchen_to_basement", "A creaky staircase.", kitchen.get(), basement.get()));
     basement->addPassage("up", std::make_shared<Passage>("basement_to_kitchen", "A creaky staircase.", basement.get(), kitchen.get()));

@@ -17,7 +17,7 @@ public:
 private:
     bool gameOver = false;
     Player *player;
-
+    void displayTutorial();
     void handleGoCommand(std::vector<std::string>);
     void handleLookCommand(std::vector<std::string>);
     void handleTakeCommand(std::vector<std::string>);
