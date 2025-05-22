@@ -10,10 +10,10 @@ bool Door::canEnter() const {
     Player* player = Player::instance();
     for (const auto& item : player->getInventory()) {
         if (item->getName() == requiredKey) {
-            return true;  // player has the key
+            return true;  
         }
     }
-    return false;  // player lacks key
+    return false; 
 }
 
 void Door::enter() {

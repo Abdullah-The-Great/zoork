@@ -5,7 +5,7 @@
 #include "Location.h"
 #include "NullRoom.h"
 #include "Item.h"
-#include <memory>  // For shared_ptr
+#include <memory>  
 #include <vector>
 #include <string>
 
@@ -21,13 +21,13 @@ public:
     void setCurrentRoom(Room*);
     Room* getCurrentRoom() const;
 
-    // Inventory management
+
     void addItem(std::shared_ptr<Item> item);
     void removeItem(const std::string& itemName);
     std::shared_ptr<Item> getItem(const std::string& itemName) const;
     void listInventory() const;
 
-    // New getter for inventory access
+
     const std::vector<std::shared_ptr<Item>>& getInventory() const { return inventory; }
 
     Player(const Player&) = delete;
@@ -42,4 +42,4 @@ private:
                currentRoom(new NullRoom()) {}
 };
 
-#endif //ZOORK_PLAYER_H
+#endif

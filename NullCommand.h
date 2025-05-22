@@ -1,6 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
 
 #ifndef ZOORK_NULLCOMMAND_H
 #define ZOORK_NULLCOMMAND_H
@@ -16,4 +13,4 @@ public:
 };
 
 
-#endif //ZOORK_NULLCOMMAND_H
+#endif 

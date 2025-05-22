@@ -1,6 +1,4 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
+
 
 #include "Passage.h"
 #include <utility>
@@ -14,10 +12,10 @@ std::string Passage::oppositeDirection(const std::string &s) {
     if (s == "west")  return "east";
     if (s == "up")    return "down";
     if (s == "down")  return "up";
-    return "";  // unknown direction
+    return ""; 
 }
 
-// Creates two passages between rooms if bidirectional is true
+
 void Passage::createBasicPassage(Room* from, Room* to,
                                 const std::string &direction, bool bidirectional) {
     from->addPassage(direction, std::make_shared<Passage>(direction + "_passage", "A basic passage.", from, to));
@@ -52,11 +50,11 @@ Room* Passage::getTo() const {
 }
 
 bool Passage::canEnter() const {
-    // By default, passage is enterable
+    
     return true;
 }
 
 void Passage::enter() {
-    // Call the base class enter, which executes the enterCommand
+   
     Location::enter();
 }

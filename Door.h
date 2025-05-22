@@ -12,7 +12,7 @@ public:
     void enter() override;
 
 private:
-    std::string requiredKey; // key name required to open door
+    std::string requiredKey; 
 };
 
-#endif // ZOORK_DOOR_H
+#endif 

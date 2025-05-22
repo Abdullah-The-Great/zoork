@@ -6,7 +6,7 @@
 #include <memory>
 
 int main() {
-    // Create Halloween-themed rooms in Hilltop Manor
+
     auto foyer = std::make_shared<Room>("foyer", "A creepy entrance hall with cobwebs and flickering candlelight.");
     auto kitchen = std::make_shared<Room>("kitchen", "A dusty kitchen with rusty pots and strange smells.");
     auto library = std::make_shared<Room>("library", "Shelves full of ancient, dusty spellbooks.");
@@ -18,7 +18,7 @@ int main() {
     auto bathroom = std::make_shared<Room>("bathroom", "A cracked mirror and a rusty clawfoot tub.");
     auto study = std::make_shared<Room>("study", "A desk cluttered with potion bottles and strange artifacts.");
 
-    // Add Halloween-themed items with all lowercase names
+
     foyer->addItem(std::make_shared<Item>("pumpkin", "A carved pumpkin with a flickering candle inside."));
     foyer->addItem(std::make_shared<Item>("witch-hat", "A tall, pointed black hat with a purple band."));
     foyer->addItem(std::make_shared<Item>("rusty-key", "An old rusty key covered in strange symbols."));
@@ -63,7 +63,7 @@ int main() {
     study->addItem(std::make_shared<Item>("quill-pen", "A black feather quill pen dripping with ink."));
     study->addItem(std::make_shared<Item>("cursed-amulet", "An amulet that seems to pulse with dark energy."));
 
-    // Connect rooms with passages or doors requiring keys
+
     foyer->addPassage("north", std::make_shared<Door>("foyer_to_hallway", "A creaky wooden door.", foyer.get(), hallway.get(), "orange-key"));
     hallway->addPassage("south", std::make_shared<Door>("hallway_to_foyer", "A creaky wooden door.", hallway.get(), foyer.get(), "orange-key"));
 
@@ -90,7 +90,7 @@ int main() {
     library->addPassage("north", std::make_shared<Passage>("library_to_garden", "A rusted gate leading outside.", library.get(), garden.get()));
     garden->addPassage("south", std::make_shared<Passage>("garden_to_library", "A rusted gate leading inside.", garden.get(), library.get()));
 
-    // Start game
+
     ZOOrkEngine engine(foyer);
     engine.run();
 

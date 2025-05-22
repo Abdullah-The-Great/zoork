@@ -1,6 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
 
 #ifndef ZOORK_NULLPASSAGE_H
 #define ZOORK_NULLPASSAGE_H
@@ -13,4 +10,4 @@ public:
 };
 
 
-#endif //ZOORK_NULLPASSAGE_H
+#endif 

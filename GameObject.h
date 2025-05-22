@@ -1,6 +1,3 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
 
 #ifndef ZOORK_GAMEOBJECT_H
 #define ZOORK_GAMEOBJECT_H
@@ -25,4 +22,4 @@ protected:
 };
 
 
-#endif //ZOORK_GAMEOBJECT_H
+#endif 

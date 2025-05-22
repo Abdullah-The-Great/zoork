@@ -18,9 +18,8 @@ public:
     void setTo(Room*);
     Room* getTo() const;
 
-    virtual bool canEnter() const;   // Only declare here
-    virtual void enter();            // Only declare here
-
+    virtual bool canEnter() const;   
+    virtual void enter();            
 protected:
     static std::string oppositeDirection(const std::string &);
 
@@ -28,4 +27,4 @@ protected:
     Room* toRoom;
 };
 
-#endif //ZOORK_PASSAGE_H
+#endif

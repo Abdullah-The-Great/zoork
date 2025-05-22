@@ -1,6 +1,4 @@
-//
-// Created by Richard Skarbez on 5/7/23.
-//
+
 
 #include "NullPassage.h"
 

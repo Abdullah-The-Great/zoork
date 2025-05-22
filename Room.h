@@ -20,13 +20,13 @@ public:
     void removePassage(const std::string &);
     std::shared_ptr<Passage> getPassage(const std::string &);
 
-    // Item management
+
     void addItem(std::shared_ptr<Item>);
     void removeItem(const std::string &);
     std::shared_ptr<Item> getItem(const std::string &);
     void listItems() const;
 
-    // Getters for encapsulated members
+
     const std::vector<std::shared_ptr<Item>> &getItems() const { return items; }
     const std::map<std::string, std::shared_ptr<Passage>> &getPassages() const { return passageMap; }
 

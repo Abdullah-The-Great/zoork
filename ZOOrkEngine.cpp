@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
-#include <limits> // For std::numeric_limits
+#include <limits> 
 
 ZOOrkEngine::ZOOrkEngine(std::shared_ptr<Room> start) {
     std::cout << "Welcome to ZOOrk: Halloween at Hilltop Manor!\n";
@@ -93,7 +93,7 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
         player->setCurrentRoom(passage->getTo());
         passage->enter();
     } else {
-        passage->enter();  // locked doors may print a message
+        passage->enter(); 
     }
 }
 
