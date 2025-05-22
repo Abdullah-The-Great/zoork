@@ -11,7 +11,7 @@ Room* Player::getCurrentRoom() const {
     return currentRoom;
 }
 
-void Player::addItem(Item* item) {
+void Player::addItem(std::shared_ptr<Item> item) {
     if (item) {
         inventory.push_back(item);
         std::cout << "You take the " << item->getName() << ".\n";
@@ -27,8 +27,8 @@ void Player::removeItem(const std::string& itemName) {
     }
 }
 
-Item* Player::getItem(const std::string& itemName) const {
-    for (auto item : inventory) {
+std::shared_ptr<Item> Player::getItem(const std::string& itemName) const {
+    for (auto& item : inventory) {
         if (item->getName() == itemName) {
             return item;
         }
@@ -41,7 +41,7 @@ void Player::listInventory() const {
         std::cout << "You have nothing in your inventory.\n";
     } else {
         std::cout << "You are carrying:\n";
-        for (auto item : inventory) {
+        for (const auto& item : inventory) {
             std::cout << "- " << item->getName() << "\n";
         }
     }

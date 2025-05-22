@@ -6,7 +6,8 @@ Room::Room(const std::string &n, const std::string &d) : Location(n, d) {
     enterCommand = std::make_shared<RoomDefaultEnterCommand>(this);
 }
 
-Room::Room(const std::string &n, const std::string &d, std::shared_ptr<Command> c) : Location(n, d, std::move(c)) {}
+Room::Room(const std::string &n, const std::string &d, std::shared_ptr<Command> c)
+    : Location(n, d, std::move(c)) {}
 
 void Room::addPassage(const std::string &direction, std::shared_ptr<Passage> p) {
     passageMap[direction] = std::move(p);
@@ -14,9 +15,9 @@ void Room::addPassage(const std::string &direction, std::shared_ptr<Passage> p) 
 
 void Room::removePassage(const std::string &direction) {
     auto it = passageMap.find(direction);
-if (it != passageMap.end()) {
-    passageMap.erase(it);
-}
+    if (it != passageMap.end()) {
+        passageMap.erase(it);
+    }
 }
 
 std::shared_ptr<Passage> Room::getPassage(const std::string &direction) {
@@ -29,13 +30,13 @@ std::shared_ptr<Passage> Room::getPassage(const std::string &direction) {
     }
 }
 
-void Room::addItem(Item* item) {
+void Room::addItem(std::shared_ptr<Item> item) {
     if (item) {
         items.push_back(item);
     }
 }
 
-void Room::removeItem(const std::string& itemName) {
+void Room::removeItem(const std::string &itemName) {
     for (auto it = items.begin(); it != items.end(); ++it) {
         if ((*it)->getName() == itemName) {
             items.erase(it);
@@ -44,8 +45,8 @@ void Room::removeItem(const std::string& itemName) {
     }
 }
 
-Item* Room::getItem(const std::string& itemName) {
-    for (auto item : items) {
+std::shared_ptr<Item> Room::getItem(const std::string &itemName) {
+    for (const auto &item : items) {
         if (item->getName() == itemName) {
             return item;
         }
@@ -58,7 +59,7 @@ void Room::listItems() const {
         std::cout << "There is nothing of interest here.\n";
     } else {
         std::cout << "You see:\n";
-        for (auto item : items) {
+        for (const auto &item : items) {
             std::cout << "- " << item->getName() << "\n";
         }
     }

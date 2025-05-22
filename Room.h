@@ -21,18 +21,18 @@ public:
     std::shared_ptr<Passage> getPassage(const std::string &);
 
     // Item management
-    void addItem(Item*);
-    void removeItem(const std::string&);
-    Item* getItem(const std::string&);
+    void addItem(std::shared_ptr<Item>);
+    void removeItem(const std::string &);
+    std::shared_ptr<Item> getItem(const std::string &);
     void listItems() const;
 
-    // New getters for encapsulated members
-    const std::vector<Item*>& getItems() const { return items; }
-    const std::map<std::string, std::shared_ptr<Passage>>& getPassages() const { return passageMap; }
+    // Getters for encapsulated members
+    const std::vector<std::shared_ptr<Item>> &getItems() const { return items; }
+    const std::map<std::string, std::shared_ptr<Passage>> &getPassages() const { return passageMap; }
 
 protected:
     std::map<std::string, std::shared_ptr<Passage>> passageMap;
-    std::vector<Item*> items;
+    std::vector<std::shared_ptr<Item>> items;
 };
 
 #endif //ZOORK_ROOM_H

@@ -8,6 +8,8 @@
 #include <algorithm>
 
 ZOOrkEngine::ZOOrkEngine(std::shared_ptr<Room> start) {
+    std::cout << "Welcome to Hilltop Manor!\n\n";
+
     player = Player::instance();
     player->setCurrentRoom(start.get());
     player->getCurrentRoom()->enter();
@@ -55,21 +57,13 @@ void ZOOrkEngine::handleGoCommand(std::vector<std::string> arguments) {
 
     std::string direction;
     std::string arg = arguments[0];
-    if (arg == "n" || arg == "north") {
-        direction = "north";
-    } else if (arg == "s" || arg == "south") {
-        direction = "south";
-    } else if (arg == "e" || arg == "east") {
-        direction = "east";
-    } else if (arg == "w" || arg == "west") {
-        direction = "west";
-    } else if (arg == "u" || arg == "up") {
-        direction = "up";
-    } else if (arg == "d" || arg == "down") {
-        direction = "down";
-    } else {
-        direction = arg;
-    }
+    if (arg == "n" || arg == "north") direction = "north";
+    else if (arg == "s" || arg == "south") direction = "south";
+    else if (arg == "e" || arg == "east") direction = "east";
+    else if (arg == "w" || arg == "west") direction = "west";
+    else if (arg == "u" || arg == "up") direction = "up";
+    else if (arg == "d" || arg == "down") direction = "down";
+    else direction = arg;
 
     Room* currentRoom = player->getCurrentRoom();
     auto passage = currentRoom->getPassage(direction);
@@ -91,7 +85,7 @@ void ZOOrkEngine::handleLookCommand(std::vector<std::string> arguments) {
         const auto& items = room->getItems();
         if (!items.empty()) {
             std::cout << "You see:\n";
-            for (auto item : items) {
+            for (const auto& item : items) {
                 std::cout << "- " << item->getName() << "\n";
             }
         } else {
@@ -107,22 +101,18 @@ void ZOOrkEngine::handleLookCommand(std::vector<std::string> arguments) {
             }
         }
     } else {
-        // Look at a specific item
         std::string itemName = arguments[0];
+        std::shared_ptr<Item> item = nullptr;
 
-        Item* item = nullptr;
-
-        // Check room items first
-        for (auto it : room->getItems()) {
+        for (const auto& it : room->getItems()) {
             if (it->getName() == itemName) {
                 item = it;
                 break;
             }
         }
 
-        // If not found, check player inventory
         if (!item) {
-            for (auto it : player->getInventory()) {
+            for (const auto& it : player->getInventory()) {
                 if (it->getName() == itemName) {
                     item = it;
                     break;
@@ -147,7 +137,7 @@ void ZOOrkEngine::handleTakeCommand(std::vector<std::string> arguments) {
     std::string itemName = arguments[0];
     Room* room = player->getCurrentRoom();
 
-    Item* item = room->getItem(itemName);
+    std::shared_ptr<Item> item = room->getItem(itemName);
     if (!item) {
         std::cout << "There is no " << itemName << " here.\n";
         return;
@@ -165,8 +155,8 @@ void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
     }
 
     std::string itemName = arguments[0];
+    std::shared_ptr<Item> item = player->getItem(itemName);
 
-    Item* item = player->getItem(itemName);
     if (!item) {
         std::cout << "You don't have a " << itemName << ".\n";
         return;
@@ -176,7 +166,6 @@ void ZOOrkEngine::handleDropCommand(std::vector<std::string> arguments) {
 
     player->removeItem(itemName);
     room->addItem(item);
-
     std::cout << "You drop the " << itemName << ".\n";
 }
 
@@ -187,9 +176,9 @@ void ZOOrkEngine::handleQuitCommand(std::vector<std::string> arguments) {
     std::string quitStr = makeLowercase(input);
 
     if (quitStr == "y" || quitStr == "yes") {
+        std::cout << "Happy Halloween!\n";
         gameOver = true;
     }
-    // clear input buffer after reading yes/no
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
@@ -197,11 +186,9 @@ std::vector<std::string> ZOOrkEngine::tokenizeString(const std::string &input) {
     std::vector<std::string> tokens;
     std::stringstream ss(input);
     std::string token;
-
     while (std::getline(ss, token, ' ')) {
         tokens.push_back(makeLowercase(token));
     }
-
     return tokens;
 }
 

@@ -5,6 +5,7 @@
 #include "Location.h"
 #include "NullRoom.h"
 #include "Item.h"
+#include <memory>  // For shared_ptr
 #include <vector>
 #include <string>
 
@@ -21,13 +22,13 @@ public:
     Room* getCurrentRoom() const;
 
     // Inventory management
-    void addItem(Item* item);
+    void addItem(std::shared_ptr<Item> item);
     void removeItem(const std::string& itemName);
-    Item* getItem(const std::string& itemName) const;
+    std::shared_ptr<Item> getItem(const std::string& itemName) const;
     void listInventory() const;
 
     // New getter for inventory access
-    const std::vector<Item*>& getInventory() const { return inventory; }
+    const std::vector<std::shared_ptr<Item>>& getInventory() const { return inventory; }
 
     Player(const Player&) = delete;
     Player& operator=(const Player&) = delete;
@@ -35,7 +36,7 @@ public:
 private:
     static Player* playerInstance;
     Room* currentRoom;
-    std::vector<Item*> inventory;
+    std::vector<std::shared_ptr<Item>> inventory;
 
     Player() : Character("You", "You are a person, alike in dignity to any other, but uniquely you."),
                currentRoom(new NullRoom()) {}
